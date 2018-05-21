@@ -187,7 +187,6 @@ Register ImockwareService.aidl in build system, i.e., change frameworks/base/And
 
 Add Mockware Service Manager(frameworks/base/core/java/android/mockware/MockwareManager.java):
 ```
-    
   public class MockwareManager {
       private final Context mContext;
       private final IMockwareService mService;
@@ -214,7 +213,6 @@ Add Mockware Service Manager(frameworks/base/core/java/android/mockware/Mockware
 
 Add service name constant to the Context class (frameworks/base/core/java/android/content/Context.java) so clients can use it instead of hardcoded string:
 ```  
-
     /**
      * Use with {@link #getSystemService} to retrieve a {@link
      * android.mockware.mockwareManager} instance
@@ -231,7 +229,7 @@ Register Mockware service manager instance in frameworks/base/core/java/android/
             public mockwareManager createService(ContextImpl ctx) {
                 IBinder b = ServiceManager.getService(Context.mockware_SERVICE);
                 return new mockwareManager(ctx, ImockwareService.Stub.asInterface(b));
-             }
+            }
         });
 ```
 
@@ -262,14 +260,14 @@ Create Mockware service frameworks/base/services/core/java/com/android/server/mo
 	              int val = getVal_native();
 	              Slog.d(TAG, "Call getVal native service with value=" + val);
                 return val;
-	        }
-	    };
+	          }
+	      };
     
-	    /* Native functions declarations */
-	    private static native boolean init_native();
-      private static native void setVal_native(int val);
-	    private static native int getVal_native();
-	}
+	      /* Native functions declarations */
+	      private static native boolean init_native();
+        private static native void setVal_native(int val);
+	      private static native int getVal_native();
+    }
 ```
 
 Register mockware service in System Server (frameworks/base/services/java/com/android/server/SystemServer.java), 
@@ -278,11 +276,11 @@ add two lines:
     import com.android.server.mockware.mockwareService;
     ...
     public final class SystemServer {
-	      private void startOtherServices() {
-		      ...	
-              mSystemServerManager.startService(mockwareService.class);
-			    ...
-		    }
+        private void startOtherServices() {
+            ...	
+            mSystemServerManager.startService(mockwareService.class);
+            ...
+        }
     }		
 ```
 
@@ -360,7 +358,6 @@ Check frameworks/base/api/current.txt, which contains mockware specific definiti
     adb push out/target/product/generic/system/lib/libandroid_servers.so system/lib/
 
     adb reboot
-
 ```
 
 Note: It's also helpful to know the following commands:
@@ -411,7 +408,6 @@ If you are still interested in SELinux, you need to search through the log and a
 ```
 You may get following:
 ```
-    ...
     type=1400 audit(1526868899.480:13): avc: denied { write } for pid=879 comm="system_server" name="mockware"
     dev="proc" ino=4026532483 scontext=u:r:system_server:s0 tcontext=u:object_r:proc:s0 tclass=file permissive=1
 ```
