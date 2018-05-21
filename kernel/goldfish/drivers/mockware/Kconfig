@@ -1,0 +1,5 @@
+config MOCKWARE
+	tristate "Mockware Linux Driver"
+	default n
+	---help---
+		This is the mockware driver for demo.

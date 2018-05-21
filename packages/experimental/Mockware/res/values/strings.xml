@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mockware</string>
+    <string name="read_hint">Read Value</string>
+    <string name="write_hint">Please input a value...</string>
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="clear">Clear</string>
+</resources>
