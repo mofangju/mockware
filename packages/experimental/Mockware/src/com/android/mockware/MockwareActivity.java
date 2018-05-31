@@ -35,52 +35,52 @@ import android.widget.EditText;
  *       Please do not use it for production purpose!
  */
 public class MockwareActivity extends Activity implements OnClickListener {
-	private final static String LOG_TAG = "MockwareActivity";
-	
-	private MockwareManager mockwareManager;
+    private final static String LOG_TAG = "MockwareActivity";
+    
+    private MockwareManager mockwareManager;
     private Button writeButton = null;
     private EditText writeEditText = null;
     private Button readButton = null;
     private TextView readTextView = null;
     private Button clearButton = null;
-	
+    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);	
-		
+        setContentView(R.layout.main);    
+        
         writeButton = (Button)findViewById(R.id.button_write);
         writeEditText = (EditText)findViewById(R.id.editview_write);
         readButton = (Button)findViewById(R.id.button_read);
         readTextView = (TextView)findViewById(R.id.textview_read);
         clearButton = (Button)findViewById(R.id.button_clear);
 
-	    readButton.setOnClickListener(this);
-	    writeButton.setOnClickListener(this);
-	    clearButton.setOnClickListener(this);
+        readButton.setOnClickListener(this);
+        writeButton.setOnClickListener(this);
+        clearButton.setOnClickListener(this);
         
-		mockwareManager = (MockwareManager) getSystemService(Context.MOCKWARE_SERVICE);
-		
+        mockwareManager = (MockwareManager) getSystemService(Context.MOCKWARE_SERVICE);
+        
         Log.i(LOG_TAG, "MockwareActivity Created");
     }
     
     @Override
     public void onClick(View v) {
-    	if(v.equals(readButton)) {
+        if(v.equals(readButton)) {
             int val = mockwareManager.getVal();
             String text = String.valueOf(val);
             readTextView.setText(text);
-			Log.d(LOG_TAG, "call mockwareManager.getVal() with result:" + val);			
-    	} else if(v.equals(writeButton)) {
+            Log.d(LOG_TAG, "call mockwareManager.getVal() with result:" + val);            
+        } else if(v.equals(writeButton)) {
             String text = writeEditText.getText().toString();
             int val = Integer.parseInt(text);
-			mockwareManager.setVal(val);
-			writeEditText.setText("");
-			Log.d(LOG_TAG, "call mockwareManager.set(" + text + ") with result:" + val);
-    	} else if(v.equals(clearButton)) {
+            mockwareManager.setVal(val);
+            writeEditText.setText("");
+            Log.d(LOG_TAG, "call mockwareManager.set(" + text + ") with result:" + val);
+        } else if(v.equals(clearButton)) {
             readTextView.setText("");
             writeEditText.setText("");
-    	}
+        }
     }
 }

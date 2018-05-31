@@ -28,9 +28,9 @@ __BEGIN_DECLS
 
 /**
  * The mockware module structure.
- */	
+ */    
 struct mockware_module_t {
-	struct hw_module_t common;
+    struct hw_module_t common;
 };
 
 /**

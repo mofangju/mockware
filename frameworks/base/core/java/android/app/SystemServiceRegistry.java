@@ -778,15 +778,15 @@ final class SystemServiceRegistry {
                 return new ContextHubManager(ctx.getOuterContext(),
                   ctx.mMainThread.getHandler().getLooper());
             }});
-			
-	    registerService(Context.MOCKWARE_SERVICE, MockwareManager.class,
-		        new CachedServiceFetcher<MockwareManager>() {
-			@Override		
-	        public MockwareManager createService(ContextImpl ctx) {
-	                IBinder b = ServiceManager.getService(Context.MOCKWARE_SERVICE);
-	                return new MockwareManager(ctx, IMockwareService.Stub.asInterface(b));
-	            }
-	        });
+            
+        registerService(Context.MOCKWARE_SERVICE, MockwareManager.class,
+                new CachedServiceFetcher<MockwareManager>() {
+            @Override        
+            public MockwareManager createService(ContextImpl ctx) {
+                    IBinder b = ServiceManager.getService(Context.MOCKWARE_SERVICE);
+                    return new MockwareManager(ctx, IMockwareService.Stub.asInterface(b));
+                }
+            });
     }
 
     /**

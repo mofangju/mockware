@@ -902,7 +902,7 @@ public final class SystemServer {
             mSystemServiceManager.startService(DeviceStorageMonitorService.class);
 
             mSystemServiceManager.startService(MockwareService.class);
-							
+                            
             if (!disableLocation) {
                 traceBeginAndSlog("StartLocationManagerService");
                 try {

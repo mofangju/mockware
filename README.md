@@ -28,7 +28,7 @@ After a successful compliation, your will find the generated images as follows.
 ```
 
 Test to execute the built emulator as follows:
-```		
+```        
     emulator -verbose -show-kernel -wipe-data 
 ```
 
@@ -96,13 +96,13 @@ Now build the kernel:
 Note: In "make menuconfig", Select "Device Drivers" => "Mockware Linux Driver".
 
 The built kernel zImage should include the mockware. It can be verified as follows.
-```	
+```    
     adb shell
     generic:/ # echo '333' > /proc/mockware                                        
     generic:/ # cat /proc/mockware                                                 
-	333
+    333
     generic:/ #
-```	
+```    
 
 To verify programmatically, check external/mockware/mockware.c.
 ```
@@ -110,7 +110,7 @@ To verify programmatically, check external/mockware/mockware.c.
     mmm external/mockware
     make snod
     emulator -verbose -show-kernel -wipe-data -kernel kernel/goldfish/arch/arm/boot/zImage
-```	
+```    
 
 ```
     adb shell
@@ -123,8 +123,8 @@ To verify programmatically, check external/mockware/mockware.c.
     Reading from the device...
     The received message is: [777] readed=3
     generic:/ # 
-```	
-		  
+```    
+          
 ### 2 Add Mockware Hardware Abstract Layer (HAL)
 
 Check and copy the following implementation into ${ANDROID_BUILD_TOP}:
@@ -137,19 +137,19 @@ Check and copy the following implementation into ${ANDROID_BUILD_TOP}:
 Define struct hw_module_t HAL_MODULE_INFO_SYM for system to open the mockware device:
 ```
     static struct hw_module_methods_t mockware_module_methods = {
-	    .open = mockware_device_open
+        .open = mockware_device_open
     };
 
     struct mockware_module_t HAL_MODULE_INFO_SYM = {
-	    .common = {
-		    .tag = HARDWARE_MODULE_TAG,
-		    .version_major = 1,
-		    .version_minor = 0,
-		    .id = MOCKWARE_HARDWARE_MODULE_ID,
-		    .name = MODULE_NAME,
-		    .author = MODULE_AUTHOR,
-		    .methods = &mockware_module_methods,
-	    }
+        .common = {
+            .tag = HARDWARE_MODULE_TAG,
+            .version_major = 1,
+            .version_minor = 0,
+            .id = MOCKWARE_HARDWARE_MODULE_ID,
+            .name = MODULE_NAME,
+            .author = MODULE_AUTHOR,
+            .methods = &mockware_module_methods,
+        }
     }; 
 ```
   
@@ -181,7 +181,7 @@ Create frameworks/base/core/java/android/mockware/ImockwareService.aidl:
 Register ImockwareService.aidl in build system, i.e., change frameworks/base/Android.mk as follows.
 ```
     LOCAL_SRC_FILES += \
-	    ...
+        ...
         core/java/android/mockware/ImockwareService.aidl \
 ```
 
@@ -195,7 +195,7 @@ Add Mockware Service Manager(frameworks/base/core/java/android/mockware/Mockware
           mContext = ctx;
           mService = service;
       }
-	
+    
       public void setVal(int val) {
           try {
               mService.setVal(val);
@@ -203,12 +203,11 @@ Add Mockware Service Manager(frameworks/base/core/java/android/mockware/Mockware
               Slog.e(TAG, "Unable to set value to the remote Mockware Service");
           }
       }
-	    
+        
       public int getVal() {
          ...
       }
   }
-  
 ```
 
 Add service name constant to the Context class (frameworks/base/core/java/android/content/Context.java) so clients can use it instead of hardcoded string:
@@ -251,22 +250,22 @@ Create Mockware service frameworks/base/services/core/java/com/android/server/mo
             @Override
             public void setVal(int val) {
                 Slog.d(TAG, "Call setVal native service with val=" + val);
-	              setVal_native(val);
-	          }
-		
-	          @Override
-	          public int getVal() {
-	              Slog.d(TAG, "Call getVal native service");
-	              int val = getVal_native();
-	              Slog.d(TAG, "Call getVal native service with value=" + val);
-                return val;
-	          }
-	      };
+                  setVal_native(val);
+              }
+        
+              @Override
+              public int getVal() {
+                  Slog.d(TAG, "Call getVal native service");
+                  int val = getVal_native();
+                  Slog.d(TAG, "Call getVal native service with value=" + val);
+                  return val;
+              }
+          };
     
-	      /* Native functions declarations */
-	      private static native boolean init_native();
-        private static native void setVal_native(int val);
-	      private static native int getVal_native();
+          /* Native functions declarations */
+          private static native boolean init_native();
+          private static native void setVal_native(int val);
+          private static native int getVal_native();
     }
 ```
 
@@ -277,11 +276,11 @@ add two lines:
     ...
     public final class SystemServer {
         private void startOtherServices() {
-            ...	
+            ...    
             mSystemServerManager.startService(mockwareService.class);
             ...
         }
-    }		
+    }        
 ```
 
 Add JNI frameworks/base/services/core/jni/com_android_server_MockwareService.cpp to Access HAL:
@@ -292,7 +291,7 @@ Add JNI frameworks/base/services/core/jni/com_android_server_MockwareService.cpp
 
     static jboolean mockware_init(JNIEnv* env, jclass clazz) {
         mockware_module_t* module;
-	
+    
         ALOGI("Mockware JNI: initializing......");
         if (hw_get_module(MOCKWARE_HARDWARE_MODULE_ID, (const struct hw_module_t**)&module) == 0) {
             ALOGI("Mockware JNI: mockware Stub has found.");
@@ -304,7 +303,7 @@ Add JNI frameworks/base/services/core/jni/com_android_server_MockwareService.cpp
             return 0;
         }
         ALOGE("Mockware JNI: failed to get mockware stub module.");
-        return 0;		
+        return 0;        
     }
 
     /**
@@ -321,7 +320,7 @@ Add JNI frameworks/base/services/core/jni/com_android_server_MockwareService.cpp
     {
         return jniRegisterNativeMethods(env, "com/android/server/mockware/MockwareService",
             method_table, NELEM(method_table));
-    }	
+    }    
 ```
 
 Change: framwork/base/services/core/jni/onload.cpp, add two lines:
@@ -379,7 +378,7 @@ contains the implementataion.
 Do not blame me, it does not work using 
 ```
     emulator -verbose -show-kernel -kernel kernel/goldfish/arch/arm/boot/zImage
-```	
+```    
 The log shows:
 ```
     05-19 04:23:31.922   224   939 V MockwareJNI: Mockware JNI: set value 5 to device.
@@ -397,7 +396,7 @@ The root cause is SElinux is working in the AOSP android-7.1.1_r9 version. Befor
 To work around it, disable the SeLinux Ploicy as follows.
 ```
     emulator -verbose -show-kernel -selinux disabled -kernel kernel/goldfish/arch/arm/boot/zImage
-```	
+```    
 Now it works.
 
 ### 6 More about Android SELinux Policy
@@ -414,8 +413,8 @@ You may get following:
 
 This means you need to and new entry to ${ANDROID_BUILD_TOP}/system/selinux/system_server.te
 ```
-    allow system_server mockware_device:file { write };	
-```	
+    allow system_server mockware_device:file { write };    
+```    
 
 In Android 8.1, Google added a new policy language called the Common Intermediate Language (CIL). I will not continue studying SELinux policy for Android 7 now. I will update SELinux in Android 8.1 CIL if I'm free.
 

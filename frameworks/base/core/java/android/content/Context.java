@@ -3660,7 +3660,7 @@ public abstract class Context {
      * @see #getSystemService
      */
     public static final String MOCKWARE_SERVICE = "mockware_service";
-	
+    
     /**
      * Determine whether the given permission is allowed for a particular
      * process and user ID running in the system.

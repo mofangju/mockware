@@ -58,7 +58,7 @@ public class MockwareService extends SystemService {
             Slog.d(TAG, "Call setVal native service with val=" + val);
             setVal_native(val);
         }
-		
+        
         /**
          * Implementation of the getVal() described in AIDL interface
          */
@@ -67,13 +67,13 @@ public class MockwareService extends SystemService {
             Slog.d(TAG, "Call getVal native service");
             int val = getVal_native();
             Slog.d(TAG, "Call getVal native service with value=" + val);
-			return val;
+            return val;
         }
     };
     
     /* Native functions declarations */
     private static native boolean init_native();
-	private static native void setVal_native(int val);
+    private static native void setVal_native(int val);
     private static native int getVal_native();
 
 }

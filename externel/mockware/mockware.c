@@ -20,7 +20,6 @@
 #include <fcntl.h>
 #include <string.h>
 #include <unistd.h>
- 
 #define BUFFER_LENGTH 256               // The max buffer length
 static char receive[BUFFER_LENGTH];     // The receive buffer from the mockware device
 
@@ -29,7 +28,7 @@ static char receive[BUFFER_LENGTH];     // The receive buffer from the mockware 
 int main(){
    int ret, fd;
    char stringToSend[BUFFER_LENGTH];
-
+   
    fd = open(DEVICE_NAME, O_RDWR);             // Open the device with read/write access
    if (fd < 0) {
       perror("Failed to open the device...");

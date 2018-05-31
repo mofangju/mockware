@@ -28,7 +28,7 @@ import android.os.RemoteException;
  * The public methods of this class will be part of the new system API
  */
 public class MockwareManager {
-	private static final String TAG = "MockwareManager";
+    private static final String TAG = "MockwareManager";
     private final Context mContext;
     private final IMockwareService mService;
     
@@ -42,7 +42,7 @@ public class MockwareManager {
         mContext = ctx;
         mService = service;
     }
-	
+    
     /**
      * Set value to the remote service
      */
@@ -54,19 +54,19 @@ public class MockwareManager {
             Slog.e(TAG, "Unable to set value to the remote Mockware Service");
         }
     }
-	    
+        
     /**
      * Get value from the remote service
      */
     public int getVal() {
-		int ret = 0;
+        int ret = 0;
         try {
             ret = mService.getVal();
         } catch (RemoteException ex){
             Slog.e(TAG, "Unable to get value from the remote Mockware Service");
         } finally {
-	        Slog.d(TAG, "mService.geVal() with val=" + ret);
-        	return ret;
+            Slog.d(TAG, "mService.geVal() with val=" + ret);
+            return ret;
         }
     }
 }
