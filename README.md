@@ -49,7 +49,7 @@ Download Goldfish Linux Kernel, and check out the branch "android-goldfish-3.4" 
 
 Now build the goldfish kernel.
 ```
-    cd kernek/goldfish
+    cd kernel/goldfish
     export ARCH=arm
     export CROSS_COMPILE=${ANDROID_BUILD_TOP}/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin/arm-eabi-
     export PATH=${ANDROID_BUILD_TOP}/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin:$PATH
